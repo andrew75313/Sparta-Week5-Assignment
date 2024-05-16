@@ -40,6 +40,11 @@ public class SchedulerService {
         return schedulerRepository.findAllByOrderByCreatedAtDesc().stream().map(SchedulerResponseDto::new).toList();
     }
 
+    /*선택 일정 조회*/
+    public Schedule getSchedule(Long id) {
+        return schedulerRepository.findAllById(id);
+    }
+
     @Transactional
     /*일정 수정*/
     public Long updateSchedule(Long id, SchedulerRequestDto requestDto) {

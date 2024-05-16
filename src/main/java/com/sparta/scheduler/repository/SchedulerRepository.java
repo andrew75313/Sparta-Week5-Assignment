@@ -8,6 +8,7 @@ import java.util.List;
 public interface SchedulerRepository extends JpaRepository<Schedule, Long> {
     //등록일 순으로 내림차순 정렬
     List<Schedule> findAllByOrderByCreatedAtDesc();
-    //username에 해당하는 일정 조회
-    List<Schedule> findAllByUsername(String username);
+
+    //id 해당하는 일정 조회
+    Schedule findAllById(Long id);
 }

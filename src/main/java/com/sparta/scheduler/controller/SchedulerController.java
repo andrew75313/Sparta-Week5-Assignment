@@ -2,6 +2,7 @@ package com.sparta.scheduler.controller;
 
 import com.sparta.scheduler.dto.SchedulerRequestDto;
 import com.sparta.scheduler.dto.SchedulerResponseDto;
+import com.sparta.scheduler.entity.Schedule;
 import com.sparta.scheduler.service.SchedulerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,13 @@ public class SchedulerController {
         return schedulerService.getSchedules();
     }
 
+    /*선택 일정 조회*/
+    @GetMapping("/schedules/{id}")
+    public Schedule updateSchedule(@PathVariable Long id) {
+        return schedulerService.getSchedule(id);
+    }
+
+
     /*일정 수정*/
     @PutMapping("/schedules/{id}")
     public Long updateSchedule(@PathVariable Long id, @RequestBody SchedulerRequestDto requestDto) {
@@ -36,7 +44,7 @@ public class SchedulerController {
 
     /*일정 삭제*/
     @DeleteMapping("/schedules/{id}")
-    public Long deleteSchedule(@PathVariable Long id,@RequestBody SchedulerRequestDto requestDto) {
+    public Long deleteSchedule(@PathVariable Long id, @RequestBody SchedulerRequestDto requestDto) {
         return schedulerService.deleteSchedule(id, requestDto);
     }
 }
