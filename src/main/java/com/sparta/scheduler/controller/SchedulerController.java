@@ -44,5 +44,34 @@ public class SchedulerController {
 
         return responseList;
     }
+
+    /*일정 수정*/
+    @PutMapping("/schedulers/{id}")
+    public Long updateScheduler(@PathVariable Long id, @RequestBody SchedulerRequestDto requestDto) {
+        // 해당 일정이 DB에 존재하는지 확인
+        if(schedulerList.containsKey(id)) {
+            // 해당 일정 가져오기
+            Scheduler scheduler = schedulerList.get(id);
+            // 해당 일정 수정(update)
+            scheduler.update(requestDto);
+            return scheduler.getId();
+        } else {
+            throw new IllegalArgumentException("선택한 일정은 존재하지 않습니다.");
+        }
+    }
+
+
+    /*일정 삭제*/
+    @DeleteMapping("/schedulers/{id}")
+    public Long deleteScheduler(@PathVariable Long id) {
+        // 해당 메모가 DB에 존재하는지 확인
+        if(schedulerList.containsKey(id)) {
+            // 해당 메모 삭제하기
+            schedulerList.remove(id);
+            return id;
+        } else {
+            throw new IllegalArgumentException("선택한 일정은 존재하지 않습니다.");
+        }
+    }
 }
 

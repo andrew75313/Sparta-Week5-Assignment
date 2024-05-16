@@ -21,4 +21,11 @@ public class Scheduler {
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
+
+    public void update(SchedulerRequestDto requestDto) {
+        this.username = requestDto.getUsername();
+        this.password = requestDto.getPassword();
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+    }
 }
