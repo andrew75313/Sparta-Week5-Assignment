@@ -54,7 +54,7 @@ public class SchedulerService {
     /*일정 삭제*/
     @Transactional
     public Long deleteSchedule(Long id, SchedulerRequestDto requestDto) {
-        // 해당 일정이 DB에 존재하는지 확인
+        // 해당 일정이 DB에 존재하는지 + 비밀번호가 DB password와 같은지 확인
         Schedule schedule = matchSchedule(id, requestDto);
         // Repository통해 DB에서 일정 삭제
         schedulerRepository.delete(schedule);
@@ -77,7 +77,7 @@ public class SchedulerService {
         if (schedule.getPassword().equals(requestDto.getPassword())) {
             return schedule;
         } else {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호를 다시 한 번 확인해 주세요.");
         }
     }
 }

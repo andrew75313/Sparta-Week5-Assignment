@@ -283,7 +283,7 @@
                     <textarea id="${id}-contents-edit" class="te-edit" name="" id="" cols="30" rows="5">${contents}</textarea>
                 </div>
                 <div id="${id}-password" class="text">
-                    <input type="text" id="${id}-password-edit" class="te-edit" value="PASSWORD 입력"> <!-- 변경된 부분 -->
+                    <input type="password" id="${id}-password-edit" class="te-edit" placeholder="PASSWORD 입력">
                 </div>
                 <div id="${id}-editarea" class="edit" style="display:none;">
                     <textarea id="${id}-textarea" class="te-edit" name="" id="" cols="30" rows="5"></textarea>
@@ -379,18 +379,31 @@
             });
         }
 
-        // 일정를 삭제합니다.
+        // 삭제 버튼 클릭 시 실행되는 함수
         function deleteOne(id) {
-            // 1. DELETE /api/schedules/{id} 에 요청해서 일정를 삭제합니다.
+            // 해당 카드의 비밀번호를 가져옵니다.
+            let password = $(`#${id}-password-edit`).val().trim();
+
+            // DELETE 요청을 보냅니다.
             $.ajax({
                 type: "DELETE",
                 url: `/api/schedules/${id}`,
+                contentType: "application/json", // 요청 바디의 타입을 JSON으로 지정합니다.
+                data: JSON.stringify({ password: password }), // 비밀번호를 JSON 형태로 요청 바디에 포함시킵니다.
                 success: function (response) {
-                    alert('메시지 삭제에 성공하였습니다.');
+                    alert('일정 삭제에 성공하였습니다.');
                     window.location.reload();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(xhr.responseText); // 서버에서 전달한 예외 메시지를 alert으로 표시합니다.
                 }
-            })
+            });
         }
+
+
+
+
+
     </script>
 </head>
 
