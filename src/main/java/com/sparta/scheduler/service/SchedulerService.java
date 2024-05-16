@@ -5,8 +5,10 @@ import com.sparta.scheduler.dto.SchedulerResponseDto;
 import com.sparta.scheduler.entity.Schedule;
 import com.sparta.scheduler.repository.SchedulerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 public class SchedulerService {
 
@@ -18,6 +20,7 @@ public class SchedulerService {
 
 
     /*일정 등록*/
+    @Transactional
     public SchedulerResponseDto createSchedule(SchedulerRequestDto requestDto) {
 
         // RequestDto -> Entity
@@ -34,32 +37,37 @@ public class SchedulerService {
 
     /*일정 조회*/
     public List<SchedulerResponseDto> getSchedules() {
-        return schedulerRepository.findAll();
+        return schedulerRepository.findAll().stream().map(SchedulerResponseDto::new).toList();
     }
 
+    @Transactional
     /*일정 수정*/
     public Long updateSchedule(Long id, SchedulerRequestDto requestDto) {
-        // 해당 일정가 DB에 존재하는지 확인
-        Schedule schedule = schedulerRepository.findById(id);
-        if (schedule != null) {
-            schedulerRepository.update(id, requestDto);
-            return id;
-        } else {
-            throw new IllegalArgumentException("선택한 일정은 존재하지 않습니다.");
-        }
+        // 해당 일정이 DB에 존재하는지 확인
+        Schedule schedule = findScheduele(id);
+
+        // 일정을 수정
+        schedule.update(requestDto);
+
+        return id;
     }
 
     /*일정 삭제*/
+    @Transactional
     public Long deleteSchedule(Long id) {
-        // 해당 일정가 DB에 존재하는지 확인
-        Schedule schedule = schedulerRepository.findById(id);
-        if (schedule != null) {
-            schedulerRepository.delete(id);
-            return id;
-        } else {
-            throw new IllegalArgumentException("선택한 일정는 존재하지 않습니다.");
-        }
+        // 해당 일정이 DB에 존재하는지 확인
+        Schedule schedule = findScheduele(id);
+        // Repository통해 DB에서 일정 삭제
+        schedulerRepository.delete(schedule);
+
+        return id;
     }
 
-
+    /*일정 존재 여부 확인 메서드*/
+    private Schedule findScheduele(Long id) {
+        // 존재할 경우, schedule 반환, null 일 경우 예외
+        return schedulerRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("선택한 일정은 존재하지 않습니다.")
+        );
+    }
 }
