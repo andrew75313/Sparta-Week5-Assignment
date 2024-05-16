@@ -12,15 +12,15 @@ import lombok.Setter;
 @Setter
 @Table(name = "memo") // 매핑할 테이블의 이름을 지정
 @NoArgsConstructor
-public class Schedule {
+public class Schedule extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "username", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "contents", nullable = false, length = 500)
+    @Column(name = "title", nullable = false, length = 500)
     private String title;
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;

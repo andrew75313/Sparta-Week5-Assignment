@@ -44,7 +44,7 @@ public class SchedulerService {
     /*일정 수정*/
     public Long updateSchedule(Long id, SchedulerRequestDto requestDto) {
         // 해당 일정이 DB에 존재하는지 확인
-        Schedule schedule = findScheduele(id);
+        Schedule schedule = findSchedule(id);
 
         // 일정을 수정
         schedule.update(requestDto);
@@ -56,7 +56,7 @@ public class SchedulerService {
     @Transactional
     public Long deleteSchedule(Long id) {
         // 해당 일정이 DB에 존재하는지 확인
-        Schedule schedule = findScheduele(id);
+        Schedule schedule = findSchedule(id);
         // Repository통해 DB에서 일정 삭제
         schedulerRepository.delete(schedule);
 
@@ -64,7 +64,7 @@ public class SchedulerService {
     }
 
     /*일정 존재 여부 확인 메서드*/
-    private Schedule findScheduele(Long id) {
+    private Schedule findSchedule(Long id) {
         // 존재할 경우, schedule 반환, null 일 경우 예외
         return schedulerRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("선택한 일정은 존재하지 않습니다.")
