@@ -9,12 +9,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
 public class SchedulerService {
-    //jdbc template 주입
-    private final JdbcTemplate jdbcTemplate;
+
+    // 중복 코드 : JdbcTemplate 객체를 계속 생성해주는 코드
+    private final SchedulerRepository schedulerRepository;
 
     public SchedulerService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.schedulerRepository = new SchedulerRepository(jdbcTemplate);
     }
+
 
     /*일정 등록*/
     public SchedulerResponseDto createSchedule(SchedulerRequestDto requestDto) {
@@ -23,7 +25,6 @@ public class SchedulerService {
         Schedule schedule = new Schedule(requestDto);
 
         // Repository에서 저장
-        SchedulerRepository schedulerRepository = new SchedulerRepository(jdbcTemplate);
         schedulerRepository.save(schedule);
 
         // Entity -> ResponseDto
@@ -34,13 +35,11 @@ public class SchedulerService {
 
     /*일정 조회*/
     public List<SchedulerResponseDto> getSchedules() {
-        SchedulerRepository schedulerRepository = new SchedulerRepository(jdbcTemplate);
         return schedulerRepository.findAll();
     }
 
     /*일정 수정*/
     public Long updateSchedule(Long id, SchedulerRequestDto requestDto) {
-        SchedulerRepository schedulerRepository = new SchedulerRepository(jdbcTemplate);
         // 해당 일정가 DB에 존재하는지 확인
         Schedule schedule = schedulerRepository.findById(id);
         if (schedule != null) {
@@ -53,7 +52,6 @@ public class SchedulerService {
 
     /*일정 삭제*/
     public Long deleteSchedule(Long id) {
-        SchedulerRepository schedulerRepository = new SchedulerRepository(jdbcTemplate);
         // 해당 일정가 DB에 존재하는지 확인
         Schedule schedule = schedulerRepository.findById(id);
         if (schedule != null) {
