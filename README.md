@@ -22,6 +22,6 @@
 |----------------	|--------	|---------------------	|---------------------------	|------------------------------------------------	|
 | 일정 등록      	| POST   	| /api/schedules      	| ScheduleResponseDto       	| 등록된 책 정보 or 일정 등록에 대한 성공 여부   	|
 | 일정 목록 조회 	| GET    	| /api/schedules      	| List<ScheduleResponseDto> 	| 등록된 일정들의 정보                           	|
-| 일정 조회      	| GET    	| /api/schedules/{id} 	| Schedule                  	| 선택된 일정의 정보                             	|
+| 일정 조회      	| GET    	| /api/schedules/{id} 	| ScheduleResponseDto        	| 선택된 일정의 정보                             	|
 | 일정 수정      	| PUT    	| /api/schedules/{id} 	| Long                      	| 수정된 일정 정보 or 일정 등록에 대한 성공 여부 	|
 | 일정 삭제      	| DELETE 	| /api/schedules/{id} 	| Long                      	| 일정삭제에 대한 성공 여부                      	|
