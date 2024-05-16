@@ -10,11 +10,10 @@ import java.util.List;
 
 public class SchedulerService {
 
-    // 중복 코드 : JdbcTemplate 객체를 계속 생성해주는 코드
     private final SchedulerRepository schedulerRepository;
 
-    public SchedulerService(JdbcTemplate jdbcTemplate) {
-        this.schedulerRepository = new SchedulerRepository(jdbcTemplate);
+    public SchedulerService(SchedulerRepository schedulerRepository) {
+        this.schedulerRepository = schedulerRepository;
     }
 
 
