@@ -37,7 +37,7 @@ public class SchedulerService {
 
     /*일정 조회*/
     public List<SchedulerResponseDto> getSchedules() {
-        return schedulerRepository.findAll().stream().map(SchedulerResponseDto::new).toList();
+        return schedulerRepository.findAllByOrderByCreatedAtDesc().stream().map(SchedulerResponseDto::new).toList();
     }
 
     @Transactional
