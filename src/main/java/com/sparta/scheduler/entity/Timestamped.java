@@ -18,8 +18,8 @@ public abstract class Timestamped {
     @Temporal(TemporalType.DATE)
     private LocalDate createdAt;
 
-    @LastModifiedDate
-    @Column
-    @Temporal(TemporalType.DATE)
-    private LocalDate modifiedAt;
+//    @LastModifiedDate
+//    @Column
+//    @Temporal(TemporalType.DATE)
+//    private LocalDate modifiedAt;
 }
