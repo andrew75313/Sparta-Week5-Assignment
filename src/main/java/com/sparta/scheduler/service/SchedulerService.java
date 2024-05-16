@@ -4,10 +4,10 @@ import com.sparta.scheduler.dto.SchedulerRequestDto;
 import com.sparta.scheduler.dto.SchedulerResponseDto;
 import com.sparta.scheduler.entity.Schedule;
 import com.sparta.scheduler.repository.SchedulerRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class SchedulerService {
 
     private final SchedulerRepository schedulerRepository;
