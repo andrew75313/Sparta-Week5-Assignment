@@ -220,9 +220,21 @@
         // 수정 버튼을 눌렀을 때, 기존 작성 내용을 textarea 에 전달합니다.
         // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
         function editPost(id) {
-            showEdits(id);
+            // 해당 카드의 수정 영역을 보이게 합니다.
+            $(`#${id}-editarea`).show();
+            $(`#${id}-submit`).show();
+            $(`#${id}-delete`).hide(); // 삭제 버튼 숨기기
+            $(`#${id}-edit`).hide(); // 수정 버튼 숨기기
+
+            // 해당 카드의 내용을 가져와서 수정 영역의 textarea에 표시합니다.
+            let username = $(`#${id}-username`).text().trim();
+            let title = $(`#${id}-title`).text().trim();
             let contents = $(`#${id}-contents`).text().trim();
-            $(`#${id}-textarea`).val(contents);
+            let password = $(`#${id}-password-edit`).val().trim(); // 비밀번호 필드 가져오기
+            $(`#${id}-username-edit`).val(username);
+            $(`#${id}-title-edit`).val(title);
+            $(`#${id}-contents-edit`).val(contents);
+            $(`#${id}-password-edit`).val(password); // 비밀번호 필드 채우기
         }
 
         function showEdits(id) {
@@ -303,19 +315,19 @@
 
         // 일정를 생성합니다.
         function writePost() {
-            // 1. 작성한 일정 제목, 내용, ID, 비밀번호를 가져옵니다.
+            // 입력된 내용을 가져옵니다.
             let title = $('#title').val().trim();
             let contents = $('#contents').val().trim();
             let username = $('#username').val().trim();
             let password = $('#password').val().trim();
 
-            // 2. 일정 제목과 내용이 비어있는지 확인합니다.
+            // 일정 제목과 내용이 비어있는지 확인합니다.
             if (title === '' || contents === '') {
                 alert('일정 제목과 내용을 입력해주세요.');
                 return;
             }
 
-            // 3. 서버에 전송할 DTO를 만듭니다.
+            // 서버에 전송할 DTO를 만듭니다.
             let data = {
                 'username': username,
                 'password': password,
@@ -323,7 +335,7 @@
                 'contents': contents
             };
 
-            // 4. POST /api/schedules 에 DTO를 전달합니다.
+            // POST /api/schedules에 DTO를 전송합니다.
             $.ajax({
                 type: "POST",
                 url: "/api/schedules",
@@ -343,27 +355,21 @@
 
         // 일정를 수정합니다.
         function submitEdit(id) {
-            // 1. 작성 대상 일정의 username, title, contents, password를 가져옵니다.
+            // 해당 카드의 비밀번호를 가져옵니다.
+            let password = $(`#${id}-password-edit`).val().trim();
+
+            // 입력된 내용을 가져옵니다.
             let username = $(`#${id}-username-edit`).val().trim();
             let title = $(`#${id}-title-edit`).val().trim();
             let contents = $(`#${id}-contents-edit`).val().trim();
-            let password = $(`#${id}-password-edit`).val().trim();
 
-            // 2. 작성한 일정이 올바른지 isValidContents 함수를 통해 확인합니다.
-            if (isValidContents(username) == false) {
-                return;
-            }
-            if (isValidContents(contents) == false) {
-                return;
-            }
-            if (isValidContents(title) == false) {
+            // 입력된 내용이 유효한지 확인합니다.
+            if (!isValidContents(username) || !isValidContents(title) || !isValidContents(contents)) {
                 return;
             }
 
-            // 3. 전달할 data JSON으로 만듭니다.
+            // 수정된 내용을 서버로 전송합니다.
             let data = { 'username': username, 'title': title, 'contents': contents, 'password': password };
-
-            // 4. PUT /api/schedules/{id} 에 data를 전달합니다.
             $.ajax({
                 type: "PUT",
                 url: `/api/schedules/${id}`,

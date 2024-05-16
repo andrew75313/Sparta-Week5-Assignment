@@ -41,8 +41,8 @@ public class SchedulerService {
     }
 
     /*선택 일정 조회*/
-    public Schedule getSchedule(Long id) {
-        return schedulerRepository.findAllById(id);
+    public SchedulerResponseDto getSchedule(Long id) {
+        return new SchedulerResponseDto(findSchedule(id));
     }
 
     @Transactional

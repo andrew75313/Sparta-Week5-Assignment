@@ -31,7 +31,7 @@ public class SchedulerController {
 
     /*선택 일정 조회*/
     @GetMapping("/schedules/{id}")
-    public Schedule updateSchedule(@PathVariable Long id) {
+    public SchedulerResponseDto updateSchedule(@PathVariable Long id) {
         return schedulerService.getSchedule(id);
     }
 
