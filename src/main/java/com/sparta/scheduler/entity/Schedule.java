@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Scheduler {
+public class Schedule {
     private Long id;
     private String username;
     private String password;
     private String title;
     private String contents;
 
-    public Scheduler(SchedulerRequestDto requestDto) {
+    public Schedule(SchedulerRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.password = requestDto.getPassword();
         this.title = requestDto.getTitle();
