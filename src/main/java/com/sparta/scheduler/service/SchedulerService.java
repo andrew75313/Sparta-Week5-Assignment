@@ -20,7 +20,6 @@ public class SchedulerService {
 
 
     /*일정 등록*/
-    @Transactional
     public SchedulerResponseDto createSchedule(SchedulerRequestDto requestDto) {
 
         // RequestDto -> Entity
@@ -57,7 +56,6 @@ public class SchedulerService {
     }
 
     /*일정 삭제*/
-    @Transactional
     public Long deleteSchedule(Long id, SchedulerRequestDto requestDto) {
         // 해당 일정이 DB에 존재하는지 + 비밀번호가 DB password와 같은지 확인
         Schedule schedule = matchSchedule(id, requestDto);
