@@ -38,7 +38,7 @@ public class SchedulerController {
 
     /*일정 수정*/
     @PutMapping("/schedules/{id}")
-    public Long updateSchedule(@PathVariable Long id, @RequestBody SchedulerRequestDto requestDto) {
+    public SchedulerResponseDto updateSchedule(@PathVariable Long id, @RequestBody SchedulerRequestDto requestDto) {
         return schedulerService.updateSchedule(id, requestDto);
     }
 

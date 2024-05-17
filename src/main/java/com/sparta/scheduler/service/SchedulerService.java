@@ -46,13 +46,13 @@ public class SchedulerService {
 
     @Transactional
     /*일정 수정*/
-    public Long updateSchedule(Long id, SchedulerRequestDto requestDto) {
+    public SchedulerResponseDto updateSchedule(Long id, SchedulerRequestDto requestDto) {
         // 해당 일정이 DB에 존재하는지 + 비밀번호가 DB password와 같은지 확인
         Schedule schedule = matchSchedule(id, requestDto);
         // 일정을 수정
         schedule.update(requestDto);
 
-        return id;
+        return new SchedulerResponseDto(schedule);
     }
 
     /*일정 삭제*/

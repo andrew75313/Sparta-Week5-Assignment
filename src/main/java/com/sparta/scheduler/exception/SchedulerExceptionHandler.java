@@ -15,6 +15,7 @@ public class SchedulerExceptionHandler {
     public ResponseEntity<ExceptionResponseDto> handleIllegalArgumentException(IllegalArgumentException e) {
         ExceptionResponseDto exceptionResponseDto = new ExceptionResponseDto();
         exceptionResponseDto.setMessage(e.getMessage());
+        exceptionResponseDto.setStatusCode(HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponseDto);
     }
 }
