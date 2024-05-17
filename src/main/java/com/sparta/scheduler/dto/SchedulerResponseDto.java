@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Getter
-@Setter
 public class SchedulerResponseDto {
     private Long id;
     private String username;
@@ -15,10 +14,7 @@ public class SchedulerResponseDto {
     private String title;
     private String contents;
     private LocalDate createdAt;
-    private String message;
 
-    public SchedulerResponseDto() {
-    }
     public SchedulerResponseDto(Schedule scheduler) {
         this.id = scheduler.getId();
         this.username = scheduler.getUsername();
