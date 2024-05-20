@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class SchedulerResponseDto {
     private Long id;
     private String username;
-    private String password;
     private String title;
     private String contents;
     private LocalDateTime createdAt;
